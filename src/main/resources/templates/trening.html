@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content="Springboot+Thymeleaf+Bootstrap app">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <div th:fragment="header-css">
+        <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css" />
+    </div>
+    <title>header</title>
+</head>
+<body>
+<div th:fragment="header">
+    <nav class="navbar navbar-dark bg-dark">
+       <!-- <a class="navbar-brand text-light">login with roles: <a th:text="${userGotIn.getRole()}"/></a>-->
+        <a class="text-light" th:text="${userGotIn.getName()} + ' with roles ' + ${userGotIn.getRole()}" />
+        <a href="/logout" class="text-primary pr-3">Logout</a>
+    </nav>
+</div>
+
+<div class="container-sm-fluid bg-light" style="margin-top:20px" >
+    <div class="row">
+        <div class="col-2">
+           <!-- <p  class="bg-primary text-white pl-3">User</p>-->
+            <br>
+            <ul class="nav nav-pills flex-column">
+                <li class="nav-item">
+                    <a class="nav-link active">User</a>
+                </li>
+            </ul>
+
+        </div>
+        <div class="col-sm-9">
+            <h2>User Information-Page</h2>
+            <br/>
+            <div>
+                <table class="table table-striped" style="border: 1px solid lightslategrey;">
+                    <thead>
+                    <h5 class="bg-light text-dark">About User</h5>
+                    </thead>
+                    <thead >
+                    <tr>
+                        <th>Id</th>
+                        <th>Firstname</th>
+                        <th>Lastname</th>
+                        <th>login</th>
+                        <th>Age</th>
+                        <th>Role</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><a th:text="${userGotIn.getId()}"/></td>
+                        <td><a th:text="${userGotIn.name}"/></td>
+                        <td><a th:text="${userGotIn.lastName}"/></td>
+                        <td><a th:text="${userGotIn.login}"/></td>
+                        <td><a th:text="${userGotIn.getAge()}"/></td>
+                        <td><div th:each="us : ${userGotIn.getRole()}">
+                            <a th:text="${us}"/>
+                        </div></td>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
