@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
+
 public class MyController {
 
     @Autowired
@@ -26,40 +27,45 @@ public class MyController {
         return "allUsers";
     }
 
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "showOne/{id}")
     public String showOneUser(@PathVariable("id") long id, Model model) {
         model.addAttribute("userByid", userService.findById(id));
         return "getUserById";
     }
 
-    @GetMapping(value = "/addUser")
+    @GetMapping("/adding/addUser")
     public String giveNewUser(Model model) {
         model.addAttribute("newUser", new User());
-        return "newuser";
+        return "/newuser";
     }
 
-    @PostMapping()
-    public String saveNewUser(@ModelAttribute("user") User user) {
+    @PostMapping("/adding/addUser")
+    public String saveNewUser(@ModelAttribute("newUser") User user) {
         userService.save(user);
         return "redirect:/allUsers";
     }
 
     @GetMapping("/{id}/admin")
     public String editUser(@PathVariable("id") long id, Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) auth.getPrincipal();
+        model.addAttribute("userGotIn", user);
+        model.addAttribute("users", userService.findAll());
         model.addAttribute("user", userService.findById(id));
-        return "edit";
+        return "tren";
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("spot/{id}")
     public String update(@ModelAttribute("user") User user, @PathVariable("id") long id) {
         userService.update(id, user);
-        return "redirect:/allUsers";
+        System.out.println("Inside patchmapping");
+        return "redirect:/{id}/admin";
     }
 
     @DeleteMapping("/{id}/admin")
     public String delete(@PathVariable("id") long id) {
         userService.deleteById(id);
-        return "redirect:/allUsers";
+        return "redirect:/{id}/admin";
     }
 
     @GetMapping("page/user")
@@ -67,6 +73,11 @@ public class MyController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) auth.getPrincipal();
         model.addAttribute("userGotIn", user);
+        return "trening";
+    }
+
+    @GetMapping("/us")
+    public String trening() {
         return "user";
     }
 

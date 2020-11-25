@@ -1,24 +1,29 @@
 package com.example.SpringBoot.module;
 
+import com.example.SpringBoot.dao.UserDaoImpl;
+import com.example.SpringBoot.service.UserService;
+import com.example.SpringBoot.service.UserServiceImpl;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.SelectBeforeUpdate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table
-@SelectBeforeUpdate
+//@SelectBeforeUpdate
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @GenericGenerator(name = "increment", strategy = "increment")
+    //@GenericGenerator(name = "increment", strategy = "increment")
     @Column(name = "user_id")
     private long id;
-    @Column(name = "login")
+    @Column(name = "login", nullable = false)
     private String login;
     @Column(name = "password")
     private String password;
@@ -32,12 +37,15 @@ public class User implements UserDetails {
     @Column(name = "age")
     private int age;
 
+
+
     public User(){}
 
-    public User(String name, String lastName, int age) {
+    public User(String name, String lastName, int age, String role) {
         this.name = name;
         this.lastName = lastName;
         this.age = age;
+
     }
 
     public long getId() {
@@ -52,9 +60,21 @@ public class User implements UserDetails {
         this.login = login;
     }
 
-   /* public void setId(long id) {
-        this.id = id;
-    }*/
+    public void setRole(String role) {
+        Role role1 = new Role();
+        role1.setRole(role);
+        if (roles == null) this.roles = new HashSet<>();
+        roles.add(role1);
+    }
+
+    public Set<Role> getRole() {
+        return roles;
+    }
+
+    public void setPassword(String password) {
+
+         this.password = password;
+    }
 
     public String getName() {
         return name;
@@ -86,7 +106,8 @@ public class User implements UserDetails {
                 "id=  " + id + ", " +
                 "  name =  " + name + ", " +
                 "  lastName =  " + lastName + ", " +
-                "  age =  " + age;
+                "  age =  " + age + "," +
+                "login = " + login;
     }
 
     @Override

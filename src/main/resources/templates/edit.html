@@ -5,7 +5,7 @@
     <title>Edit user</title>
 </head>
 <body>
-<form th:method="PATCH" th:action="@{/{id}(id=${user.getId()})}" th:object="${user}">
+<form th:method="PATCH" th:action="@{/spot/{id}(id=${user.getId()})}" th:object="${user}">
     <label for="name">Enter user name</label>
     <input type="text" th:field="*{name}" id="name"/>
 
@@ -27,7 +27,7 @@
 
 <br/>
 
-<a href="/addUser">Add user</a>
+<a href="/adding/addUser">Add user</a>
 
 <br/>
 <br/>

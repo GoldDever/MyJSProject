@@ -1,5 +1,6 @@
 package com.example.SpringBoot.dao;
 
+import com.example.SpringBoot.module.Role;
 import com.example.SpringBoot.module.User;
 
 import java.util.List;

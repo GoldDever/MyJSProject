@@ -1,6 +1,7 @@
 package com.example.SpringBoot.service;
 
 import com.example.SpringBoot.dao.UserDao;
+import com.example.SpringBoot.module.Role;
 import com.example.SpringBoot.module.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
