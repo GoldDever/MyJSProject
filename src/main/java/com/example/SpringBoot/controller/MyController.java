@@ -21,6 +21,25 @@ public class MyController {
         return "firstView";
     }
 
+    @GetMapping("/{id}/admin")
+    public String editUser(@PathVariable("id") long id, Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) auth.getPrincipal();
+        model.addAttribute("userGotIn", user);
+        model.addAttribute("users", userService.findAll());
+        model.addAttribute("user", userService.findById(id));
+        return "newOne";
+    }
+
+    @GetMapping("page/user")
+    public String showOverview(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) auth.getPrincipal();
+        model.addAttribute("userGotIn", user);
+        return "trening";
+    }
+
+/*
     @GetMapping(value = "/allUsers")
     public String showAllUsers(Model model) {
         model.addAttribute("usersAll", userService.findAll());
@@ -79,6 +98,6 @@ public class MyController {
     @GetMapping("/us")
     public String trening() {
         return "user";
-    }
+    }*/
 
 }

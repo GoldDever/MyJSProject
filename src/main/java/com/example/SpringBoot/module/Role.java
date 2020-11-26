@@ -1,6 +1,7 @@
 package com.example.SpringBoot.module;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
@@ -16,11 +17,13 @@ public class Role implements GrantedAuthority {
     private long id;
     @Column(name = "role")
     private String role;
+    @JsonIgnore
     @ManyToMany(mappedBy = "roles")
     private Set<User> users;
 
     public Role() {
     }
+
 
     @Override
     public String getAuthority() {
