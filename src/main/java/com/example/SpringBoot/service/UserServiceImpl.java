@@ -6,7 +6,9 @@ import com.example.SpringBoot.module.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @Transactional(readOnly = true)
@@ -31,7 +33,8 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void save(User user) {
-        userDao.save(user);
+        User user1 = assignNewRoles(user);
+        userDao.save(user1);
     }
 
     @Override
@@ -43,11 +46,22 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void update(long id, User user) {
-        userDao.update(id, user);
+        User user1 = assignNewRoles(user);
+        userDao.update(id, user1);
     }
 
     @Override
     public User getUserByUserName(String name) {
         return userDao.getUserByUserName(name);
+    }
+
+    public User assignNewRoles(User user) {
+        Set<Role> set = user.getRoles();
+        Set<Role> set1 = new HashSet<>();
+        for (Role r: set) {
+            set1.add(userDao.findRoleByUserName(r.getRole()));
+        }
+        user.setRoles(set1);
+        return user;
     }
 }

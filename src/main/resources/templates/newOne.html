@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<html lang="en" xmlns:th="http://thymeleaf.org/extras/spring-security">
 <head>
 
 
@@ -12,7 +12,7 @@
 
 <div th:fragment="header">
     <nav class="navbar navbar-dark bg-dark">
-        <a class="text-light" th:text="${userGotIn.getName()} + ' with roles ' + ${userGotIn.getRole()}" />
+        <a class="text-light" th:text="${userGotIn.getName()} + ' with roles ' + ${userGotIn.getRoles()}" />
         <a href="/logout" class="text-primary pr-3">Logout</a>
     </nav>
 </div>
@@ -98,14 +98,14 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="font-weight-bold" for="Email">
-                                                    Email
+                                                <label class="font-weight-bold" for="lastName">
+                                                    Last Name
                                                 </label>
                                                 <input required
                                                        type="text"
                                                        name="lastName"
                                                        class="form-control"
-                                                       id="email"
+                                                       id="lastName"
                                                        placeholder="Last Name">
                                             </div>
 
@@ -142,13 +142,20 @@
 
                                             </div>
 
-                                            <div class="form-group">
+                                            <!--<div class="form-group">
                                                 <label class="font-weight-bold"
                                                        for="newUserRole">
                                                     Role
                                                 </label>
                                                 <select class="form-control" id="newUserRole"
-                                                        name="role">
+                                                        name="roles">
+                                                    <option>ROLE_ADMIN</option>
+                                                    <option>ROLE_USER</option>
+                                                </select>
+                                            </div>-->
+                                            <div class="form-group">
+                                                <label class="font-weight-bold">Role</label>
+                                                <select class="form-control" name="roles" multiple="multiple">
                                                     <option>ROLE_ADMIN</option>
                                                     <option>ROLE_USER</option>
                                                 </select>
@@ -215,7 +222,7 @@
                         </div>
                         <div class="form-group">
                             <label class="font-weight-bold">Role</label>
-                            <select class="form-control" name="role" multiple="multiple">
+                            <select class="form-control" name="roles" multiple="multiple">
                                 <option>ROLE_ADMIN</option>
                                 <option>ROLE_USER</option>
                             </select>

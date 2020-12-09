@@ -17,7 +17,7 @@
 <div th:fragment="header">
     <nav class="navbar navbar-dark bg-dark">
         <!-- <a class="navbar-brand text-light">login with roles: <a th:text="${userGotIn.getRole()}"/></a>-->
-        <a class="text-light" th:text="${userGotIn.getName()} + ' with roles ' + ${userGotIn.getRole()}"/>
+        <a class="text-light" th:text="${userGotIn.getName()} + ' with roles ' + ${userGotIn.getRoles()}"/>
         <a class="text-primary pr-3" href="/logout">Logout</a>
     </nav>
 </div>
@@ -54,7 +54,7 @@
                         <td><a th:text="${userGotIn.login}"/></td>
                         <td><a th:text="${userGotIn.getAge()}"/></td>
                         <td>
-                            <div th:each="us : ${userGotIn.getRole()}">
+                            <div th:each="us : ${userGotIn.getRoles()}">
                                 <a th:text="${us}"/>
                             </div>
                         </td>

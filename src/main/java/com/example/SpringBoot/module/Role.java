@@ -24,6 +24,9 @@ public class Role implements GrantedAuthority {
     public Role() {
     }
 
+    public Role(String role) {
+        this.role = role;
+    }
 
     @Override
     public String getAuthority() {
@@ -57,9 +60,7 @@ public class Role implements GrantedAuthority {
 
     @Override
     public String toString() {
-        if(role.equals("ROLE_USER")){
-            return "USER";
-        } else return "ADMIN";
+       return role;
     }
 }
 

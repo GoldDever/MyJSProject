@@ -39,12 +39,15 @@ public class MyRestController {
 
     @PostMapping("/adding/addUser")
     public ResponseEntity<List<User>> post(@RequestBody User user) {
+        System.out.println("In a restController Post method");
+        System.out.println(user.getRoles() );
         userService.save(user);
         return ResponseEntity.ok(userService.findAll());
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<List<User>> put(@PathVariable Long id, @RequestBody User user) {
+    @PutMapping("/edit")
+    public ResponseEntity<List<User>> put(/*@PathVariable Long id,*/ @RequestBody User user) {
+        int id = 1;
         userService.update(id, user);
         return ResponseEntity.ok(userService.findAll());
     }

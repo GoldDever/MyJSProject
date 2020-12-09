@@ -1,12 +1,14 @@
 package com.example.SpringBoot.dao;
 
 
+import com.example.SpringBoot.module.Role;
 import com.example.SpringBoot.module.User;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Component
@@ -34,11 +36,11 @@ public class UserDaoImpl implements UserDao{
 
     @Override
     public void update(long id, User updatedUser) {
-        User user = getById(id);
+       /* User user = getById(id);
         user.setAge(updatedUser.getAge());
         user.setName(updatedUser.getName());
-        user.setLastName(updatedUser.getLastName());
-        entityManager.merge(user);
+        user.setLastName(updatedUser.getLastName());*/
+        entityManager.merge(updatedUser);
     }
 
     @Override
@@ -53,5 +55,13 @@ public class UserDaoImpl implements UserDao{
         q.setParameter("name", login);
         User user = (User) q.getSingleResult();
         return user;
+    }
+
+    @Override
+    public Role findRoleByUserName(String name) {
+        TypedQuery<Role> query = entityManager.createQuery("SELECT u FROM Role u WHERE u.role=:name", Role.class);
+        query.setParameter("name", name);
+        Role role = query.getSingleResult();
+        return role;
     }
 }

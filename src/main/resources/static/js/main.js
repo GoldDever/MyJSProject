@@ -14,7 +14,7 @@ function openEditTab(id) {
         $('#edit-user-form [name=age]').val(user.age);
         $('#edit-user-form [name=login]').val(user.login);
         $('#edit-user-form [name=password]').val(user.password);
-        $('#edit-user-form [name=roles]').val(user.roles?.map(function(a) { return a.authority; }));
+        $('#edit-user-form [name=roles]').val(user.roles?.map(function(a) { return a.role; }));
     });
 }
 
@@ -22,7 +22,7 @@ function redrawTable(userList) {
     var $table = $('.table-users tbody');
     $table.empty();
     userList.forEach((user, index) => {
-        var authorities = user.role.map(function(a) { return a.authority ; }).join('<br/>');
+        var authorities = user.roles.map(function(a) { return a.role ; }).join('<br/>');
         var btnEdit = '<a class="btn btn-primary btn-edit" data-id="' + user.id + '">Edit</a>';
         var btnDelete = '<a class="btn btn-danger btn-delete" data-id="' + user.id + '">Delete</a>';
         $table.append('<tr>' +
@@ -48,7 +48,7 @@ function redrawTableUser(userList) {
     var $table = $('.table-user tbody');
     $table.empty();
     userList((user, index) => {
-        var authorities = user.roles.map(function(a) { return a.authority; }).join('<br/>');
+        var authorities = user.roles.map(function(a) { return a.role; }).join('<br/>');
 
         $table.append('<tr>' +
             '<td>' + user.id + '</td>' +
@@ -106,12 +106,12 @@ function createUser() {
     // if (!validateNewUser(userData)) {
     //     return;
     // }
-    // if (typeof userData.roles === 'string') {
-    //     userData.roles = [userData.roles];
-    // }
+     if (typeof userData.roles === 'string') {
+         userData.roles = [userData.roles];
+     }
     $.ajax({
         url: '/api/adding/addUser',
-        type: 'post',
+        type: 'POST',
         data: JSON.stringify(userData),
         dataType: 'json',
         contentType: 'application/json',
@@ -133,12 +133,12 @@ function updateUser() {
         userData.roles = [userData.roles];
     }
     $.ajax({
-        url: '/api/' + userData.id,
-        type: 'put',
+        url: '/api/edit' /*+ userData.id*/,
+        type: 'PUT',
         data: JSON.stringify(userData),
         dataType: 'json',
         contentType: 'application/json',
-        success: function(data) {
+        success: function( data) {
             redrawTable(data);
             $('#modal-edit').modal('toggle');
         },
