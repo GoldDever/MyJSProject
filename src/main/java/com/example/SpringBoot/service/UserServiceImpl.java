@@ -45,9 +45,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void update(long id, User user) {
+    public void update(User user) {
         User user1 = assignNewRoles(user);
-        userDao.update(id, user1);
+        userDao.update(user1);
     }
 
     @Override

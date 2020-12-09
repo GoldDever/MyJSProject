@@ -47,8 +47,8 @@ public class MyRestController {
 
     @PutMapping("/edit")
     public ResponseEntity<List<User>> put(/*@PathVariable Long id,*/ @RequestBody User user) {
-        int id = 1;
-        userService.update(id, user);
+
+        userService.update(user);
         return ResponseEntity.ok(userService.findAll());
     }
 

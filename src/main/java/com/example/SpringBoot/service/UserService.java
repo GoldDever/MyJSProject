@@ -10,6 +10,6 @@ public interface UserService {
     User findById(long id);
     void save(User user);
     void deleteById(long id);
-    void update(long id, User user);
+    void update(User user);
     User getUserByUserName(String name);
 }
